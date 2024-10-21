@@ -1,4 +1,5 @@
-Job Queue#include <iostream>
+Job Queue
+#include <iostream>
 #define MAX 5 // Maximum number of jobs the queue can hold
 
 using namespace std;
