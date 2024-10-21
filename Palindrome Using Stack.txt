@@ -1,0 +1,40 @@
+Palindrome Using Stack
+
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+bool isPalindrome(string s) {
+    stack<char> stk;
+    string cleaned = "";
+    for (char c : s) {
+        if (isalnum(c)) {
+            cleaned += tolower(c);
+            stk.push(tolower(c));
+        }
+    }
+    string reversed = "";
+    while (!stk.empty()) {
+        reversed += stk.top();
+        stk.pop();
+    }
+    return cleaned == reversed;
+}
+
+int main() {
+    string input;
+    cout << "Enter a string: ";
+    getline(cin, input);
+
+    cout << "Original string: " << input << endl;
+    string reversed(input.rbegin(), input.rend());
+    cout << "Reversed string: " << reversed << endl;
+
+    if (isPalindrome(input)) {
+        cout << "The string is a palindrome." << endl;
+    } else {
+        cout << "The string is not a palindrome." << endl;
+    }
+    return 0;
+}

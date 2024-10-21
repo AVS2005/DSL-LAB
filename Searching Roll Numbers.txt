@@ -1,0 +1,88 @@
+Searching Roll Numbers
+a) Linear Search and Sentinel Search
+
+def get_roll_numbers():
+    n = int(input("Enter number of students: "))
+    return [int(input(f"Enter roll number {i+1}: ")) for i in range(n)]
+
+def linear_search(roll_numbers, target):
+    return target in roll_numbers
+
+def sentinel_search(roll_numbers, target):
+    roll_numbers.append(target)
+    i = 0
+    while roll_numbers[i] != target:
+        i += 1
+    roll_numbers.pop()
+    return i < len(roll_numbers)
+
+roll_numbers = get_roll_numbers()
+target_roll = int(input("Enter roll number to search for: "))
+
+# Linear Search
+if linear_search(roll_numbers, target_roll):
+    print("Roll number found using Linear Search.")
+else:
+    print("Roll number not found using Linear Search.")
+
+# Sentinel Search
+if sentinel_search(roll_numbers, target_roll):
+    print("Roll number found using Sentinel Search.")
+else:
+    print("Roll number not found using Sentinel Search.")
+
+b) Binary Search and Fibonacci Search
+
+
+def binary_search(sorted_rolls, target):
+    low, high = 0, len(sorted_rolls) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if sorted_rolls[mid] == target:
+            return True
+        elif sorted_rolls[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return False
+
+def fibonacci_search(arr, x):
+    fib_m2 = 0
+    fib_m1 = 1
+    fib_m = fib_m2 + fib_m1
+    while (fib_m < len(arr)):
+        fib_m2 = fib_m1
+        fib_m1 = fib_m
+        fib_m = fib_m2 + fib_m1
+    offset = -1
+    while (fib_m > 1):
+        i = min(offset+fib_m2, len(arr)-1)
+        if (arr[i] < x):
+            fib_m = fib_m1
+            fib_m1 = fib_m2
+            fib_m2 = fib_m - fib_m1
+            offset = i
+        elif (arr[i] > x):
+            fib_m = fib_m2
+            fib_m1 = fib_m1 - fib_m2
+            fib_m2 = fib_m - fib_m1
+        else:
+            return True
+    if(fib_m1 and arr[offset+1] == x):
+        return True
+    return False
+
+roll_numbers.sort()
+target_roll = int(input("Enter roll number to search for: "))
+
+# Binary Search
+if binary_search(roll_numbers, target_roll):
+    print("Roll number found using Binary Search.")
+else:
+    print("Roll number not found using Binary Search.")
+
+# Fibonacci Search
+if fibonacci_search(roll_numbers, target_roll):
+    print("Roll number found using Fibonacci Search.")
+else:
+    print("Roll number not found using Fibonacci Search.")

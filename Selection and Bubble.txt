@@ -1,0 +1,49 @@
+Selection and Bubble
+
+# Function for Selection Sort
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_index = i
+        for j in range(i+1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        # Swap the found minimum element with the first element
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+
+# Function for Bubble Sort
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n-1):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+# Main program
+if __name__ == "__main__":
+    # Get user input for percentages
+    n = int(input("Enter the number of students: "))
+    percentages = []
+    
+    for i in range(n):
+        score = float(input(f"Enter percentage of student {i+1}: "))
+        percentages.append(score)
+    
+    print("\nOriginal percentages list:", percentages)
+
+    # Sorting using Selection Sort
+    selection_sorted = selection_sort(percentages.copy())
+    print("\nPercentages sorted using Selection Sort:", selection_sorted)
+
+    # Sorting using Bubble Sort
+    bubble_sorted = bubble_sort(percentages.copy())
+    print("\nPercentages sorted using Bubble Sort:", bubble_sorted)
+
+    # Display top 5 scores from the sorted list
+    top_5_selection = selection_sorted[-5:]  # Get top 5 scores from the selection sorted list
+    top_5_bubble = bubble_sorted[-5:]  # Get top 5 scores from the bubble sorted list
+    
+    print("\nTop 5 scores after Selection Sort:", top_5_selection[::-1])  # Display in descending order
+    print("Top 5 scores after Bubble Sort:", top_5_bubble[::-1])  # Display in descending order

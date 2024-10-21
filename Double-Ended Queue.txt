@@ -1,0 +1,122 @@
+Double-Ended Queue
+
+#include <iostream>
+#define SIZE 10 // Maximum size of the deque
+
+using namespace std;
+
+class Deque {
+    int arr[SIZE];
+    int front, rear;
+
+public:
+    Deque() {
+        front = -1;
+        rear = -1;
+    }
+
+    // Function to check if the deque is full
+    bool isFull() {
+        return ((front == 0 && rear == SIZE - 1) || (front == rear + 1));
+    }
+
+    // Function to check if the deque is empty
+    bool isEmpty() {
+        return (front == -1);
+    }
+
+    // Function to insert element at the front
+    void insertFront(int element) {
+        if (isFull()) {
+            cout << "Deque is full!\n";
+            return;
+        }
+
+        if (front == -1) { // If deque is initially empty
+            front = rear = 0;
+        } else if (front == 0) {
+            front = SIZE - 1;
+        } else {
+            front--;
+        }
+
+        arr[front] = element;
+        cout << "Inserted " << element << " at front\n";
+    }
+
+    // Function to insert element at the rear
+    void insertRear(int element) {
+        if (isFull()) {
+            cout << "Deque is full!\n";
+            return;
+        }
+
+        if (front == -1) { // If deque is initially empty
+            front = rear = 0;
+        } else if (rear == SIZE - 1) {
+            rear = 0;
+        } else {
+            rear++;
+        }
+
+        arr[rear] = element;
+        cout << "Inserted " << element << " at rear\n";
+    }
+
+    // Function to delete element from the front
+    void deleteFront() {
+        if (isEmpty()) {
+            cout << "Deque is empty!\n";
+            return;
+        }
+
+        cout << "Deleted " << arr[front] << " from front\n";
+
+        if (front == rear) {
+            front = rear = -1; // Deque becomes empty
+        } else if (front == SIZE - 1) {
+            front = 0;
+        } else {
+            front++;
+        }
+    }
+
+    // Function to delete element from the rear
+    void deleteRear() {
+        if (isEmpty()) {
+            cout << "Deque is empty!\n";
+            return;
+        }
+
+        cout << "Deleted " << arr[rear] << " from rear\n";
+
+        if (front == rear) {
+            front = rear = -1; // Deque becomes empty
+        } else if (rear == 0) {
+            rear = SIZE - 1;
+        } else {
+            rear--;
+        }
+    }
+
+    // Function to display the deque
+    void display() {
+        if (isEmpty()) {
+            cout << "Deque is empty!\n";
+            return;
+        }
+
+        cout << "Deque elements: ";
+        int i = front;
+        while (i != rear) {
+            cout << arr[i] << " ";
+            i = (i + 1) % SIZE;
+        }
+        cout << arr[rear] << "\n";
+    }
+};
+
+int main() {
+    Deque dq;
+
+    dq.insert

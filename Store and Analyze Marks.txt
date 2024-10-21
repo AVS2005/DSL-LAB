@@ -1,0 +1,40 @@
+Store and Analyze Marks
+
+def get_marks():
+    n = int(input("Enter number of students: "))
+    marks = []
+    for i in range(n):
+        score = input(f"Enter marks for student {i+1} (leave blank if absent): ")
+        marks.append(None if score == "" else int(score))
+    return marks
+
+def average_score(marks):
+    valid_marks = [m for m in marks if m is not None]
+    return sum(valid_marks) / len(valid_marks)
+
+def highest_and_lowest(marks):
+    valid_marks = [m for m in marks if m is not None]
+    return max(valid_marks), min(valid_marks)
+
+def absent_count(marks):
+    return marks.count(None)
+
+def most_frequent_mark(marks):
+    valid_marks = [m for m in marks if m is not None]
+    return max(set(valid_marks), key=valid_marks.count)
+
+marks = get_marks()
+
+# a) Average score of the class
+print("Average score:", average_score(marks))
+
+# b) Highest and lowest scores of the class
+highest, lowest = highest_and_lowest(marks)
+print(f"Highest score: {highest}, Lowest score: {lowest}")
+
+# c) Count of students who were absent for the test
+print("Number of students absent:", absent_count(marks))
+
+# d) Display mark with the highest frequency
+print("Mark with highest frequency:", most_frequent_mark(marks))
+

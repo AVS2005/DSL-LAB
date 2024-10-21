@@ -1,0 +1,89 @@
+Doubly Circular Linked List
+
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int seatNumber;
+    bool isBooked;
+    Node* next;
+    Node* prev;
+};
+
+class CinemaBooking {
+private:
+    Node* head[10];
+
+public:
+    CinemaBooking() {
+        for (int i = 0; i < 10; i++) {
+            head[i] = nullptr;
+            createRow(i);
+        }
+    }
+
+    void createRow(int row) {
+        Node* last = nullptr;
+        for (int i = 1; i <= 7; i++) {
+            Node* newNode = new Node{ i, false, nullptr, nullptr };
+            if (!head[row]) {
+                head[row] = newNode;
+                newNode->next = newNode;
+                newNode->prev = newNode;
+                last = newNode;
+            } else {
+                last->next = newNode;
+                newNode->prev = last;
+                newNode->next = head[row];
+                head[row]->prev = newNode;
+                last = newNode;
+            }
+        }
+    }
+
+    void displaySeats(int row) {
+        Node* temp = head[row];
+        cout << "Row " << row + 1 << ": ";
+        do {
+            cout << (temp->isBooked ? "[X] " : "[O] ");
+            temp = temp->next;
+        } while (temp != head[row]);
+        cout << endl;
+    }
+
+    void bookSeat(int row, int seat) {
+        Node* temp = head[row];
+        for (int i = 1; i < seat; i++) {
+            temp = temp->next;
+        }
+        if (!temp->isBooked) {
+            temp->isBooked = true;
+            cout << "Seat " << seat << " in row " << row + 1 << " has been booked." << endl;
+        } else {
+            cout << "Seat already booked!" << endl;
+        }
+    }
+
+    void cancelSeat(int row, int seat) {
+        Node* temp = head[row];
+        for (int i = 1; i < seat; i++) {
+            temp = temp->next;
+        }
+        if (temp->isBooked) {
+            temp->isBooked = false;
+            cout << "Seat " << seat << " in row " << row + 1 << " has been cancelled." << endl;
+        } else {
+            cout << "Seat is not booked!" << endl;
+        }
+    }
+};
+
+int main() {
+    CinemaBooking cinema;
+    cinema.displaySeats(0);
+    cinema.bookSeat(0, 3);
+    cinema.displaySeats(0);
+    cinema.cancelSeat(0, 3);
+    cinema.displaySeats(0);
+    return 0;
+}

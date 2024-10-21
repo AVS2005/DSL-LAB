@@ -1,0 +1,43 @@
+Sports Participation Analysis
+
+def get_student_list(prompt):
+    n = int(input(f"Enter number of students who play {prompt}: "))
+    students = []
+    for _ in range(n):
+        student = input(f"Enter student name: ")
+        if student not in students:  # Avoid duplicate entries
+            students.append(student)
+    return students
+
+def intersection(list1, list2):
+    return [student for student in list1 if student in list2]
+
+def difference(list1, list2):
+    return [student for student in list1 if student not in list2]
+
+def union(list1, list2):
+    return list1 + difference(list2, list1)
+
+groupA = get_student_list("cricket")
+groupB = get_student_list("badminton")
+groupC = get_student_list("football")
+
+# a) List of students who play both cricket and badminton
+both_cricket_badminton = intersection(groupA, groupB)
+print("Students who play both cricket and badminton:", both_cricket_badminton)
+
+# b) List of students who play either cricket or badminton but not both
+either_cricket_or_badminton = difference(union(groupA, groupB), both_cricket_badminton)
+print("Students who play either cricket or badminton but not both:", either_cricket_or_badminton)
+
+# c) Number of students who play neither cricket nor badminton
+total_students = int(input("Enter total number of students in the class: "))
+students_in_cricket_or_badminton = union(groupA, groupB)
+neither_cricket_nor_badminton = total_students - len(students_in_cricket_or_badminton)
+print("Number of students who play neither cricket nor badminton:", neither_cricket_nor_badminton)
+
+# d) Number of students who play cricket and football but not badminton
+cricket_and_football = intersection(groupA, groupC)
+cricket_and_football_not_badminton = difference(cricket_and_football, groupB)
+print("Number of students who play cricket and football but not badminton:", len(cricket_and_football_not_badminton))
+

@@ -1,0 +1,89 @@
+Singly Linked List
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node {
+    string name;
+    int prn;
+    Node* next;
+};
+
+class PinnacleClub {
+private:
+    Node* head;
+    Node* tail;
+
+public:
+    PinnacleClub() {
+        head = nullptr;
+        tail = nullptr;
+    }
+
+    void addMember(int prn, string name) {
+        Node* newNode = new Node{ name, prn, nullptr };
+        if (!head) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    void deleteMember(int prn) {
+        if (!head) return;
+        Node* temp = head;
+        Node* prev = nullptr;
+        if (head->prn == prn) {
+            head = head->next;
+            delete temp;
+            return;
+        }
+        while (temp && temp->prn != prn) {
+            prev = temp;
+            temp = temp->next;
+        }
+        if (temp) {
+            prev->next = temp->next;
+            if (temp == tail) tail = prev;
+            delete temp;
+        }
+    }
+
+    int totalMembers() {
+        int count = 0;
+        Node* temp = head;
+        while (temp) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+
+    void displayMembers() {
+        Node* temp = head;
+        cout << "Club Members:" << endl;
+        while (temp) {
+            cout << "PRN: " << temp->prn << ", Name: " << temp->name << endl;
+            temp = temp->next;
+        }
+    }
+};
+
+int main() {
+    PinnacleClub club;
+    club.addMember(1, "President");
+    club.addMember(2, "Member 1");
+    club.addMember(3, "Member 2");
+    club.addMember(4, "Secretary");
+
+    cout << "Total members: " << club.totalMembers() << endl;
+    club.displayMembers();
+
+    cout << "\nDeleting a member (PRN 2)" << endl;
+    club.deleteMember(2);
+    club.displayMembers();
+
+    return 0;
+}

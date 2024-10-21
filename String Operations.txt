@@ -1,0 +1,31 @@
+String Operations
+
+def string_operations(s):
+    # a) Display the word with the longest length
+    words = s.split()
+    longest_word = max(words, key=len)
+    print("Longest word:", longest_word)
+
+    # b) Determine the frequency of occurrence of a particular character
+    char = input("Enter a character to find its frequency: ")
+    frequency = s.count(char)
+    print(f"Frequency of '{char}':", frequency)
+
+    # c) Check whether the given string is a palindrome
+    if s == s[::-1]:
+        print("The string is a palindrome.")
+    else:
+        print("The string is not a palindrome.")
+
+    # d) Display the index of the first appearance of a substring
+    substring = input("Enter a substring to find its first occurrence: ")
+    index = s.find(substring)
+    print(f"Index of first appearance of '{substring}':", index)
+
+    # e) Count the occurrences of each word in the given string
+    word_count = {word: words.count(word) for word in words}
+    print("Occurrences of each word:", word_count)
+
+# Input string
+input_string = input("Enter a string: ")
+string_operations(input_string)
